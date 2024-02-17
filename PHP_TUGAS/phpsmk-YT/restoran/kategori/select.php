@@ -1,5 +1,7 @@
 <div style="margin:auto; width:900px;">;
 
+<h3><a href="http://localhost/XI_SEMESTER2/PHP_TUGAS/phpsmk-yt/restoran/kategori/insert.php">TAMBAH DATA</a></h3>
+
 <?php 
 
     require_once"../function.php";

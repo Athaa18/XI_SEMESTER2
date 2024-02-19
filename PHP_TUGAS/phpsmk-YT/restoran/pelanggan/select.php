@@ -20,9 +20,6 @@
 
 ?>
 
-<div class="float-left mr-4">
-    <a class="btn btn-primary" href="?f=pelanggan&m=insert" role="button">TAMBAH DATA</a>
-</div>
 
 <h3>Pelanggan</h3>
 <table class="table table-bordered w-70 mt-4">

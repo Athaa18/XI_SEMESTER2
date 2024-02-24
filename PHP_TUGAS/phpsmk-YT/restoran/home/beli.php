@@ -45,6 +45,7 @@ if (isset($_GET['kurang'])) {
     function keranjang(){
         global $db;
         $total=0;
+        global $total;
         echo '
         
         <table class="table table-bordered w-70">
@@ -85,4 +86,7 @@ if (isset($_GET['kurang'])) {
              </tr>';
         echo '</table>';
     }
+    
 ?>
+
+<a class="btn btn-primary" href="?f=home&m=checkout&total=<?php echo $total?>" role="button">CHECKOUT</a>

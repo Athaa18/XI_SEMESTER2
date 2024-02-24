@@ -2,11 +2,19 @@
 
     if (isset($_GET['total'])) {
         $total=$_GET['total'];
-        echo$total;
-        echo'<br>';
-        echo idorder();
-        echo '<br>';
-        inserOrder(idorder(),$_SESSION['idpelanggan'],'2024-2-24',$total);
+        $idorder=idorder();
+        $idpelanggan=$_SESSION['idpelanggan'];
+        $tgl=date('Y-m-d');
+        $sql="SELECT * FROM tblorder WHERE idorder=$idorder";
+        $count=$db->rowCOUNT($sql);
+        if ($count==0) {
+            inserOrder($idorder,$idpelanggan,$tgl,$total);
+            insertOrderDetail($idorder);
+        }else {
+            insertOrderDetail($idorder);
+        }
+        
+        
     }
 
     function idorder(){
@@ -24,8 +32,24 @@
     function inserOrder($idorder,$idpelanggan,$tgl,$total){
         global $db;
         $sql="INSERT INTO tblorder VALUES($idorder,$idpelanggan,'$tgl',$total,0,0,0)";
-        // echo $sql;
+        
         $db->runSQL($sql);
+    }
+    function insertOrderDetail($idorder=1){
+        global $db;
+        foreach ($_SESSION as $key => $value) {
+            if ($key<>'pelanggan' && $key<>'idpelanggan') {
+                $id=substr($key,1);
+                $sql="SELECT * FROM tblmenu WHERE idmenu=$id";
+                $row=$db->getALL($sql);
+                foreach ($row as $r) {
+                    $idmenu=$r['idmenu'];
+                    $harga=$r['harga'];
+                    $sql="INSERT INTO tblorderdetail VALUES ('',$idorder,$idmenu,$value,$harga)";
+                    $db->runSQL($sql);
+                }
+            }
+        }
     }
 
 ?>
